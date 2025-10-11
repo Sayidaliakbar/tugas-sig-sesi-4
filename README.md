@@ -1,9 +1,8 @@
-﻿# tugas-sig-sesi-4
-# Sayid Ali Akbar
-# Sitorus Rifqi Alvarez Jennifer
-# Muhammad Gilang Rija A
-
-# Analisis Pembangunan Jalan Tol BOCIMI Sesi 3 di Sukabumi Menggunakan Sistem Informasi Geografis (SIG)
+﻿# tugas-sig-sesi-4 Analisis Pembangunan Jalan Tol BOCIMI Sesi 3 di Sukabumi Menggunakan Sistem Informasi Geografis (SIG)
+# nama:
+Sayid Ali Akbar
+Sitorus Rifqi Alvarez Jennifer
+Muhammad Gilang Rija A
 
 Proyek ini bertujuan untuk melakukan analisis terhadap pembangunan Jalan Tol Bogor–Ciawi–Sukabumi (BOCIMI) Sesi 3, khususnya di wilayah Kabupaten Sukabumi, menggunakan pendekatan Sistem Informasi Geografis (SIG).
 
@@ -15,3 +14,4 @@ Titik awal dan akhir pembangunan tol,
 Jalur rencana atau eksisting tol BOCIMI sesi 3, dan
 
 Area pemukiman yang berpotensi terdampak pembangunan.
+
