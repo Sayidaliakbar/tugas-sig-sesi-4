@@ -1,5 +1,5 @@
 ﻿# tugas-sig-sesi-4 Analisis Pembangunan Jalan Tol BOCIMI Sesi 3 di Sukabumi Menggunakan Sistem Informasi Geografis (SIG)
-# nama:
+# oleh:
 Sayid Ali Akbar,
 Sitorus Rifqi Alvarez Jennifer,
 Muhammad Gilang Rija A
@@ -14,5 +14,6 @@ Titik awal dan akhir pembangunan tol,
 Jalur rencana atau eksisting tol BOCIMI sesi 3, dan
 
 Area pemukiman yang berpotensi terdampak pembangunan.
+
 
 
