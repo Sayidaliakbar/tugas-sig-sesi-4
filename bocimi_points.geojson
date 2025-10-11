@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Titik Nol - Desa Munjul" },
+      "geometry": { "type": "Point", "coordinates": [106.773605, -6.856144] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Titik Akhir - Cibolang Kaler" },
+      "geometry": { "type": "Point", "coordinates": [106.872313, -6.905654] }
+    }
+  ]
+}
