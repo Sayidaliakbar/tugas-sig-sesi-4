@@ -13,7 +13,8 @@ Titik awal dan akhir pembangunan tol,
 
 Jalur rencana atau eksisting tol BOCIMI sesi 3, dan
 
-Area pemukiman yang berpotensi terdampak pembangunan.
+Area pemukiman yang terdampak pembangunan.
+
 
 
 
