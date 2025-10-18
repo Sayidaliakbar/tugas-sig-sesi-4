@@ -4,8 +4,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nama": "Cibolang kaler",
-        "keterangan": "Daerah pemukiman yang terdampak langsung oleh proyek tol Bocimi seksi 3"
+        "nama": "Cibolang Kaler",
+        "keterangan": "Daerah pemukiman yang terdampak langsung oleh proyek tol Bocimi seksi 3.",
+        "gambar": "gambar/Cibolang_kaler.png"
       },
       "geometry": {
         "type": "Polygon",
