@@ -4,8 +4,8 @@
     {
       "type": "Feature",
       "properties": {
-        "nama": "Cibolang Kaler",
-        "keterangan": "Daerah pemukiman yang terdampak langsung oleh proyek tol Bocimi seksi 3.",
+        "nama": "Kecamatan Cisaat",
+        "keterangan": "Pemukiman yang terdampak: Kutasirna, Cibolang Kaler, Selajambe dan sekitarnya.",
         "gambar": "gambar/Cibolang_kaler.png"
       },
       "geometry": {
@@ -22,6 +22,90 @@
             [106.87031346824523, -6.902911838988402],
             [106.86995274302217, -6.905606185834628],
             [106.87245811359895, -6.905507229148185]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kecamatan Caringin",
+        "keterangan": "Pemukiman yang terdampak: Cijengkol, Mekarjaya, Talaga dan sekitarnya.",
+        "gambar": "gambar/Caringin.png"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [106.85767974915888, -6.895669393316581],
+            [106.85837763984847, -6.898707779946818],
+            [106.8649819100118, -6.8979614185189035],
+            [106.8730357070217, -6.897908143405729],
+            [106.87459220130904, -6.893910513759636],
+            [106.86567957914781, -6.891832310454035],
+            [106.85767974915888, -6.895669393316581]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kecamatan Cicantanyan",
+        "keterangan": "Pemukiman yang terdampak: Lembursawah, Cijalingan, Cisande, Cimahi dan sekitarnya.",
+        "gambar": "gambar/Cicantanyan.png"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [106.85464127128813, -6.900638031418126],
+            [106.85564237452178, -6.895866896174894],
+            [106.83271357627228, -6.8939283845191],
+            [106.83251321891208, -6.899494999301552],
+            [106.85464127128813, -6.900638031418126]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kecamatan Cibadak",
+        "keterangan": "Pemukiman yang terdampak: Karangtengah, Cihelangtonggoh dan sekitarnya.",
+        "gambar": "gambar/Cibadak.png"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [106.82807633905736, -6.888777050197291],
+            [106.79760719497625, -6.880270802304608],
+            [106.793084456967, -6.889032290215994],
+            [106.8161963141622, -6.893237236184859],
+            [106.8276695789545, -6.894862378748243],
+            [106.82807633905736, -6.888777050197291]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nama": "Kecamatan Ciambar",
+        "keterangan": "Pemukiman yang terdampak: Ciambar, Mekarjaya, dan sekitarnya.",
+        "gambar": "gambar/Ciambar.png"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [106.79207016720233, -6.877172334564079],
+            [106.78944818224602, -6.871682769392194],
+            [106.7787172530746, -6.851264034210416],
+            [106.77125076556518, -6.861896596837752],
+            [106.78679212289404, -6.885959788962211],
+            [106.79207016720233, -6.877172334564079]
           ]
         ]
       }

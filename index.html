@@ -25,8 +25,53 @@
       height: 90vh;
       border-top: 3px solid #007bff;
     }
+
+    /* === Popup Styling === */
+    .popup-content {
+      text-align: center;
+      max-width: 250px;
+    }
+
+    .popup-content img {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .popup-content b {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #2c3e50;
+    }
+
+    .popup-content p {
+      margin: 0;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* === Tooltip Styling === */
+    .leaflet-tooltip.desaname {
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 13px;
+      border: 1px solid #fff;
+    }
+
+    /* === Hilangkan garis fokus biru bawaan Leaflet saat klik === */
+    .leaflet-interactive:focus {
+      outline: none !important;
+      stroke: none !important;
+    }
   </style>
 </head>
+
 <body>
   <h2>Peta Jalan Tol BOCIMI Sesi 3</h2>
   <div id="map"></div>
@@ -42,17 +87,35 @@
     });
 
     // === Basemap ===
-    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const osm3857 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // === Layer Group ===
+    const osm4326 = L.tileLayer.wms("https://ows.terrestris.de/osm/service?", {
+      layers: "OSM-WMS",
+      format: "image/png",
+      transparent: false,
+      attribution: "© OpenStreetMap contributors",
+      crs: L.CRS.EPSG4326
+    });
+
+    const osmStandard = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap (Humanitarian Style)'
+    });
+
+    const esriSat = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { attribution: 'Tiles © Esri, Maxar, Earthstar Geographics' }
+    );
+
+    // === Layer kosong untuk GeoJSON ===
     const titikLayer = L.layerGroup();
     const jalurLayer = L.layerGroup();
     const pemukimanLayer = L.layerGroup();
 
-    // === Titik GeoJSON ===
+    // === Titik ===
     fetch('bocimi_points.geojson')
       .then(res => res.json())
       .then(data => {
@@ -64,24 +127,22 @@
           }
         }).addTo(titikLayer);
         titikLayer.addTo(map);
-      });
+      })
+      .catch(err => console.error("Gagal memuat bocimi_points.geojson:", err));
 
-    // === Jalur GeoJSON ===
+    // === Jalur ===
     fetch('bocimi_jalur.geojson')
       .then(res => res.json())
       .then(data => {
         const line = L.geoJSON(data, {
-          style: {
-            color: 'blue',
-            weight: 4,
-            opacity: 0.9
-          }
+          style: { color: 'blue', weight: 4, opacity: 0.9 }
         }).addTo(jalurLayer);
         jalurLayer.addTo(map);
         map.fitBounds(line.getBounds());
-      });
+      })
+      .catch(err => console.error("Gagal memuat bocimi_jalur.geojson:", err));
 
-    // === Polygon Pemukiman ===
+    // === Pemukiman ===
     fetch('bocimi_pemukiman.geojson')
       .then(response => response.json())
       .then(data => {
@@ -93,59 +154,63 @@
             weight: 2
           },
           onEachFeature: function (feature, layer) {
-            const namaDesa = feature.properties.nama || 'Pemukiman';
+            const nama = feature.properties.nama || 'Pemukiman Terpengaruh';
             const keterangan = feature.properties.keterangan || '';
-            const gambar = feature.properties.gambar || 'gambar/Cibolang kaler.png'; // default
+            const gambar = feature.properties.gambar
+              ? `<img src="${feature.properties.gambar}" alt="${nama}">`
+              : '';
 
-            // === Popup isi ===
             const popupContent = `
-              <div style="text-align:center">
-                <img src="${gambar}" alt="${namaDesa}" width="220"
-                     style="display:block; margin:0 auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.2);">
-                <h4 style="margin:10px 0 5px;">${namaDesa}</h4>
-                <p style="margin:0; font-size:14px;">${keterangan}</p>
+              <div class="popup-content">
+                ${gambar}
+                <b>${nama}</b>
+                <p>${keterangan}</p>
               </div>
             `;
             layer.bindPopup(popupContent);
 
-            // === Efek hover hijau ===
+            // Tooltip saat hover
+            layer.bindTooltip(nama, {
+              permanent: false,
+              direction: "top",
+              className: "desaname"
+            });
+
+            // === Efek Hover ===
             layer.on({
               mouseover: function (e) {
                 e.target.setStyle({
-                  fillColor: '#00ff00',
-                  color: '#008000',
-                  fillOpacity: 0.7,
-                  weight: 3
+                  weight: 3,
+                  color: '#ff3300',
+                  fillColor: '#ffb84d',
+                  fillOpacity: 0.6
                 });
-                e.target.bringToFront();
+                e.target.openTooltip();
               },
               mouseout: function (e) {
                 geojsonPemukiman.resetStyle(e.target);
-              },
-              click: function (e) {
-                // Hilangkan garis highlight saat diklik
-                e.target.setStyle({
-                  color: '#ff6600',
-                  weight: 2
-                });
+                e.target.closeTooltip();
               }
             });
           }
-        });
+        }).addTo(pemukimanLayer);
 
-        geojsonPemukiman.addTo(pemukimanLayer);
         pemukimanLayer.addTo(map);
-      });
+      })
+      .catch(err => console.error("Gagal memuat bocimi_pemukiman.geojson:", err));
 
     // === Kontrol Layer ===
     const baseMaps = {
-      "OpenStreetMap": osm
+      "Default Web Mercator (EPSG:3857)": osm3857,
+      "EPSG:4326 (Geographic)": osm4326,
+      "OpenStreetMap (Standar)": osmStandard,
+      "Citra Satelit (Esri)": esriSat
     };
 
     const overlayMaps = {
-      "Titik": titikLayer,
-      "Jalur Tol": jalurLayer,
-      "Pemukiman": pemukimanLayer
+      "Titik Awal & Akhir (marker)": titikLayer,
+      "Jalur Tol BOCIMI Sesi 3 (polyline)": jalurLayer,
+      "Pemukiman Terpengaruh (polygon)": pemukimanLayer
     };
 
     L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
