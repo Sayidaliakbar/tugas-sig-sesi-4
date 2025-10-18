@@ -70,7 +70,7 @@
     const jalurLayer = L.layerGroup();
     const pemukimanLayer = L.layerGroup();
 
-    // === Ambil data titik dari file GeoJSON ===
+    // === Ambil data titik ===
     fetch('bocimi_points.geojson')
       .then(res => res.json())
       .then(data => {
@@ -85,7 +85,7 @@
       })
       .catch(err => console.error("Gagal memuat bocimi_points.geojson:", err));
 
-    // === Ambil data jalur dari file GeoJSON ===
+    // === Ambil data jalur ===
     fetch('bocimi_jalur.geojson')
       .then(res => res.json())
       .then(data => {
@@ -105,7 +105,7 @@
     fetch('bocimi_pemukiman.geojson')
       .then(response => response.json())
       .then(data => {
-        L.geoJSON(data, {
+        const geojsonPemukiman = L.geoJSON(data, {
           style: {
             color: '#ff6600',
             fillColor: '#ff9900',
@@ -113,15 +113,39 @@
             weight: 2
           },
           onEachFeature: function (feature, layer) {
-            if (feature.properties) {
-              layer.bindPopup(`
-                <b>${feature.properties.nama || 'Pemukiman Terpengaruh'}</b><br>
-                ${feature.properties.keterangan || ''}<br>
-                ${feature.properties.luas ? 'Luas: ' + feature.properties.luas : ''}
-              `);
-            }
+            const infoText = `
+              <b>${feature.properties.nama || 'Pemukiman Terpengaruh'}</b><br>
+              ${feature.properties.keterangan || ''}<br>
+              ${feature.properties.luas ? 'Luas: ' + feature.properties.luas : ''}
+            `;
+
+            // Tooltip otomatis saat hover
+            layer.bindTooltip(infoText, {
+              sticky: true,
+              direction: "top",
+              offset: [0, -5],
+              opacity: 0.9
+            });
+
+            // Efek hover visual hijau
+            layer.on({
+              mouseover: function (e) {
+                e.target.setStyle({
+                  fillColor: '#00ff00',  // hijau terang
+                  color: '#008000',      // garis hijau tua
+                  fillOpacity: 0.7,
+                  weight: 3
+                });
+                e.target.bringToFront();
+              },
+              mouseout: function (e) {
+                geojsonPemukiman.resetStyle(e.target);
+              }
+            });
           }
-        }).addTo(pemukimanLayer);
+        });
+
+        geojsonPemukiman.addTo(pemukimanLayer);
         pemukimanLayer.addTo(map);
       })
       .catch(err => console.error("Gagal memuat pemukiman.geojson:", err));
