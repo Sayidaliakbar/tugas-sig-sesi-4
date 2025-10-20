@@ -51,9 +51,9 @@
     {
       "type": "Feature",
       "properties": {
-        "nama": "Kecamatan Cicantanyan",
+        "nama": "Kecamatan Cicantayan",
         "keterangan": "Pemukiman yang terdampak: Lembursawah, Cijalingan, Cisande, Cimahi dan sekitarnya.",
-        "gambar": "gambar/Cicantanyan.png"
+        "gambar": "gambar/Cicantayan.png"
       },
       "geometry": {
         "type": "Polygon",
